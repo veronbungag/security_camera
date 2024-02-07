@@ -4,6 +4,8 @@ import datetime
 
 cap = cv2.VideoCapture(0)
 
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascase_frontalface_default.xml")
+
 while True:
     _, frame = cap.read()
     
