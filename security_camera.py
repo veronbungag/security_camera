@@ -16,6 +16,9 @@ while True:
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     bodies = face_cascade.detectMultiScale(gray, 1.3, 5)
     
+    if len(faces) + len(bodies) > 0:
+        recording = True
+        
     for (x, y, width, height) in faces:
         cv2.rectangle(frame, (x, y), (x + width, y + height), (255, 0, 0), 3)
 
