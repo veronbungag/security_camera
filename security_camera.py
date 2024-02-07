@@ -9,6 +9,10 @@ face_cascade = cv2.CascadeClassifier(
 body_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascase_fullbody_default.xml")
 
+recording = True
+
+frame_size = (int(cap.get(3)), int (cap.get(4)))
+
 while True:
     _, frame = cap.read()
     
