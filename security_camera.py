@@ -12,6 +12,7 @@ body_cascade = cv2.CascadeClassifier(
 recording = True
 
 frame_size = (int(cap.get(3)), int (cap.get(4)))
+fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 
 while True:
     _, frame = cap.read()
