@@ -24,7 +24,9 @@ while True:
     
     if len(faces) + len(bodies) > 0:
         recording = True
-        
+    
+    out.write(frame)
+    
     for (x, y, width, height) in faces:
         cv2.rectangle(frame, (x, y), (x + width, y + height), (255, 0, 0), 3)
 
@@ -32,6 +34,6 @@ while True:
     
     if cv2.waitKey(1) == ord('q'):
         break
-
+out.release()
 cap.release()
-cv2.destroyAllWindows
+cv2.destroyAllWindows()
