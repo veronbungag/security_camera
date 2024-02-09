@@ -16,7 +16,6 @@ SECONDS_TO_RECORD_AFTER_DETECTION = 5
 
 frame_size = (int(cap.get(3)), int (cap.get(4)))
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-out = cv2.VideoWriter("video.mp4", fourcc, 20, frame_size)
 
 while True:
     _, frame = cap.read()
@@ -26,8 +25,14 @@ while True:
     bodies = face_cascade.detectMultiScale(gray, 1.3, 5)
     
     if len(faces) + len(bodies) > 0:
-        detection = True
-    
+        if detection:
+            timer_started = False
+        else:
+            detection = True
+            current_time = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
+            out = cv2.VideoWriter(f"{current_time}.mp4", fourcc, 20, frame_size)
+            print("Started recording!")
+            
     out.write(frame)
     
     for (x, y, width, height) in faces:
