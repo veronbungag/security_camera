@@ -9,12 +9,12 @@ face_cascade = cv2.CascadeClassifier(
 body_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascase_fullbody_default.xml")
 
-recording = True
+detection = True
 detection_stopped_time = None
 timer_started = False
 SECONDS_TO_RECORD_AFTER_DETECTION = 5
 
-frame_size = (int(cap.get(3)), int (cap.get(4)))
+frame_size = (int(cap.get(3)), int(cap.get(4)))
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 
 while True:
@@ -46,10 +46,11 @@ while True:
         timer_started = True
         detection_stopped_time = time.time()
         
-    out.write(frame)
+    if detection:
+        out.write(frame)
     
-    for (x, y, width, height) in faces:
-        cv2.rectangle(frame, (x, y), (x + width, y + height), (255, 0, 0), 3)
+    #for (x, y, width, height) in faces:
+    #   cv2.rectangle(frame, (x, y), (x + width, y + height), (255, 0, 0), 3)
 
     cv2.imshow("Kids Camera", frame)
     
