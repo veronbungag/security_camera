@@ -32,7 +32,10 @@ while True:
             current_time = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
             out = cv2.VideoWriter(f"{current_time}.mp4", fourcc, 20, frame_size)
             print("Started recording!")
-            
+    elif detection:  
+        timer_started = True
+        detection_stopped_time = time.time()
+        
     out.write(frame)
     
     for (x, y, width, height) in faces:
