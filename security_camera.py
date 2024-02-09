@@ -39,6 +39,9 @@ while True:
                 timer_started = False
                 out.release()
                 print("Stop Recording!")
+        else:
+            timer_started = True
+            detection_stopped_time = time.time()
                 
         timer_started = True
         detection_stopped_time = time.time()
