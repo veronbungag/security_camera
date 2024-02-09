@@ -4,12 +4,10 @@ import datetime
 
 cap = cv2.VideoCapture(0)
 
-face_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascase_frontalface_default.xml")
-body_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascase_fullbody_default.xml")
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+body_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascase_fullbody_default.xml")
 
-detection = True
+detection = False
 detection_stopped_time = None
 timer_started = False
 SECONDS_TO_RECORD_AFTER_DETECTION = 5
@@ -19,7 +17,7 @@ fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 
 while True:
     _, frame = cap.read()
-    
+
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     bodies = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -34,7 +32,7 @@ while True:
             print("Started Recording!")
     elif detection:  
         if timer_started:
-            if time.time() - detection_stopped_time > SECONDS_TO_RECORD_AFTER_DETECTION:
+            if time.time() - detection_stopped_time >= SECONDS_TO_RECORD_AFTER_DETECTION:
                 detection = False
                 timer_started = False
                 out.release()
@@ -42,10 +40,7 @@ while True:
         else:
             timer_started = True
             detection_stopped_time = time.time()
-                
-        timer_started = True
-        detection_stopped_time = time.time()
-        
+                    
     if detection:
         out.write(frame)
     
@@ -56,6 +51,7 @@ while True:
     
     if cv2.waitKey(1) == ord('q'):
         break
+    
 out.release()
 cap.release()
 cv2.destroyAllWindows()
